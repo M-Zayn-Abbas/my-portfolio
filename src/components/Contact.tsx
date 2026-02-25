@@ -1,14 +1,49 @@
 import { motion } from "framer-motion";
-import { Mail, Linkedin, Github, Send, Instagram } from "lucide-react";
+import { Mail, Linkedin, Github, Send, Instagram, Loader2 } from "lucide-react";
 import { useState, FormEvent } from "react";
+
+import { useToast } from "@/hooks/use-toast";
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    // placeholder
-    console.log("Form submitted:", form);
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/mzainabbas23@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          ...form,
+          _subject: `New Portfolio Message from ${form.name}`,
+        }),
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Message sent!",
+          description: "Thank you for reaching out. I'll get back to you soon.",
+        });
+        setForm({ name: "", email: "", message: "" });
+      } else {
+        throw new Error("Failed to send message");
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -65,9 +100,18 @@ const Contact = () => {
           />
           <button
             type="submit"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg bg-primary text-primary-foreground font-semibold transition-all duration-300 hover:shadow-[0_0_30px_hsl(172_66%_50%/0.3)] hover:-translate-y-0.5"
+            disabled={isSubmitting}
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg bg-primary text-primary-foreground font-semibold transition-all duration-300 hover:shadow-[0_0_30px_hsl(172_66%_50%/0.3)] hover:-translate-y-0.5 disabled:opacity-70 disabled:pointer-events-none"
           >
-            Send Message <Send className="w-4 h-4" />
+            {isSubmitting ? (
+              <>
+                Sending... <Loader2 className="w-4 h-4 animate-spin" />
+              </>
+            ) : (
+              <>
+                Send Message <Send className="w-4 h-4" />
+              </>
+            )}
           </button>
         </motion.form>
 

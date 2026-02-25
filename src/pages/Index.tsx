@@ -4,6 +4,7 @@ import About from "@/components/About";
 import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
+import Testimonials from "@/components/Testimonials";
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 
@@ -20,6 +21,7 @@ const Index = () => {
         <About />
         <Skills />
         <Projects />
+        <Testimonials />
         <Contact />
       </main>
       <Footer />
