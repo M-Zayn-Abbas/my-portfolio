@@ -1,8 +1,24 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Star } from "lucide-react";
 
+type Testimonial = {
+    id: number;
+    type: "video" | "text";
+    src?: string;
+    name: string;
+    role?: string;
+    country?: string;
+    avatar?: string;
+    avatarImg?: string;
+    avatarColor?: string;
+    stars?: number;
+    time?: string;
+    text?: string;
+    duration?: string;
+};
+
 const Testimonials = () => {
-    const testimonials = [
+    const testimonials: Testimonial[] = [
         {
             id: 1,
             type: "video",
