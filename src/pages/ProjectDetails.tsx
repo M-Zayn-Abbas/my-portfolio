@@ -183,6 +183,20 @@ const ProjectDetails = () => {
                                     </div>
                                 </div>
                             )}
+
+                            {/* Testimonial Image */}
+                            {project.testimonialImageUrl && (
+                                <div className="mt-12 max-w-xl mx-auto w-full">
+                                    <h3 className="text-xl font-bold uppercase tracking-widest text-primary mb-6 border-b border-border pb-2 text-center">Client Testimonial</h3>
+                                    <div className="rounded-2xl overflow-hidden shadow-2xl border border-zinc-800 flex items-center justify-center bg-card max-w-sm mx-auto p-2">
+                                        <img
+                                            src={project.testimonialImageUrl}
+                                            alt={`${project.title} Client Testimonial`}
+                                            className="w-full h-auto object-contain rounded-xl"
+                                        />
+                                    </div>
+                                </div>
+                            )}
                         </div>
 
                         {/* Right Col - Details */}

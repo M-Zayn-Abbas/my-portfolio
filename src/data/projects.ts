@@ -9,9 +9,27 @@ export interface Project {
     liveLink: string;
     features: string[];
     testimonialVideoUrl?: string; // Optional testimonial video
+    testimonialImageUrl?: string; // Optional testimonial image
 }
 
 export const projects: Project[] = [
+    {
+        id: "devketers-outreach",
+        title: "Devketers Outreach System",
+        shortDescription: "A comprehensive outreach management system featuring automated scraping, AI-powered email generation, and team management capabilities.",
+        fullDescription: "A full-stack outreach management system built with Next.js and MongoDB.\n\nThis platform automatically scrapes lead websites and integrates directly with Google's Gemini AI. Gemini analyzes the lead to automatically determine the best outreach angle, identify the core problem they face, determine their business type, and generate a customized email based on your company's service description.\n\nThe system gives users the flexibility to send these tailored emails directly from the platform via a company email or personal Gmail integration.\n\nIt features comprehensive lead tracking with read/reply detection, automatically marking emails as replied and initiating automated follow-ups for non-responsive leads. Additionally, it serves as a complete team management portal where you can add team members, track their individual leads, monitor their progress, and allow them to connect their personal Gmail accounts.",
+        stack: ["Next.js", "MongoDB", "Gemini AI"],
+        videoUrl: "/devketers-outreach/video.mp4",
+        images: Array.from({ length: 10 }, (_, i) => `/devketers-outreach/${i + 1}.png`),
+        liveLink: "",
+        features: [
+            "Automated lead website scraping and analysis via Gemini AI",
+            "AI-generated customized outreach emails based on service descriptions",
+            "Direct email sending via company or personal Gmail integrations",
+            "Automated reply detection and intelligent follow-up sequences",
+            "Comprehensive team management with individual lead tracking and progress monitoring"
+        ]
+    },
     {
         id: "spica-rec",
         title: "Spica Rec - Recruitment System",
@@ -80,5 +98,54 @@ export const projects: Project[] = [
             "Profit margin analysis categorized by product groups",
             "Customer relationship tracking identifying highest paying clients"
         ]
+    },
+    {
+        id: "skm-apparel",
+        title: "SKM Apparels",
+        shortDescription: "A WordPress website built with Elementor showcasing apparel products and business information.",
+        fullDescription: "A fully responsive WordPress website built using Elementor for SKM Apparels. The site serves as a beautiful digital catalog for their clothing products while highlighting key business information.\n\nCustomers can easily browse through the available apparel and use the integrated contact form to place orders or get in touch directly with the business. This provides a clean and modern stream to convert visitors into potential clients.",
+        stack: ["WordPress", "Elementor"],
+        videoUrl: "/skm-apparel/video.mp4",
+        images: Array.from({ length: 4 }, (_, i) => `/skm-apparel/${i + 1}.png`),
+        liveLink: "",
+        features: [
+            "Fully responsive WordPress Elementor design",
+            "Digital product catalog for apparel",
+            "Integrated contact form for easy order placement",
+            "Clear business information and modern branding"
+        ]
+    },
+    {
+        id: "curious-mindset",
+        title: "Curious Mindset",
+        shortDescription: "A life coaching WordPress website dedicated to helping individuals improve their lives.",
+        fullDescription: "A fully responsive WordPress website built for Curious Mindset, a life coaching company.\n\nThe platform serves as a digital hub for their coaching services, providing visitors with comprehensive information about how they can transform their lives and achieve their goals through professional guidance. It features a clean, calming design appropriate for the personal development space.",
+        stack: ["WordPress", "Elementor"],
+        videoUrl: "/curious-mindset/video.mp4",
+        images: Array.from({ length: 6 }, (_, i) => `/curious-mindset/${i + 1}.png`),
+        liveLink: "",
+        features: [
+            "Fully responsive WordPress design",
+            "Information portal for life coaching services",
+            "Clean and calming user interface",
+            "Service-focused architecture"
+        ]
+    },
+    {
+        id: "bay-by-ambreen-and-bina",
+        title: "Bay by Ambreen and Bina",
+        shortDescription: "A WordPress and WooCommerce store for premium bedsheets.",
+        fullDescription: "A complete e-commerce solution built with WordPress and WooCommerce for Bay by Ambreen and Bina.\n\nThe platform allows customers to browse and purchase physical goods perfectly with an integrated cart and checkout process. To build trust and social proof, the site also features a review system where previous buyers can leave their feedback on purchased items.",
+        stack: ["WordPress", "WooCommerce", "Elementor"],
+        videoUrl: "/bay-by-ambreen-and-bina/video.mp4",
+        images: Array.from({ length: 10 }, (_, i) => `/bay-by-ambreen-and-bina/${i + 1}.png`),
+        liveLink: "",
+        features: [
+            "Fully functional WooCommerce store for physical products",
+            "Seamless cart and checkout process",
+            "Customer product review system",
+            "Responsive Elementor-based design"
+        ],
+        testimonialImageUrl: "/testimonials/bay-by-ambreen-and-bina.jpeg"
     }
 ];

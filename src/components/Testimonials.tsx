@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Star } from "lucide-react";
+import { Link } from "react-router-dom";
 
 type Testimonial = {
     id: number;
-    type: "video" | "text";
+    type: "video" | "text" | "image";
     src?: string;
     name: string;
     role?: string;
@@ -15,6 +16,8 @@ type Testimonial = {
     time?: string;
     text?: string;
     duration?: string;
+    link?: string;
+    linkLabel?: string;
 };
 
 const Testimonials = () => {
@@ -25,6 +28,19 @@ const Testimonials = () => {
             src: "/testimonials/kamilla.mp4",
             name: "Kamilla",
             role: "Client",
+        },
+        {
+            id: 4,
+            type: "text",
+            name: "Ambreen Zahra",
+            country: "Bay by Ambreen and Bina",
+            avatar: "AB",
+            avatarColor: "bg-primary/20 text-primary",
+            stars: 5,
+            time: "Recently",
+            text: "I would like to say thank you to Zain for making a beautiful website for my brand BAY BY AMBREEN AND BINA . The website looks very professional and attractive. Many people liked it and asked me for the info from where I got it made so that they can get their own websites made.\nI really appreciate your hard work. Thank you so much, Zain!",
+            link: "/client-work/bay-by-ambreen-and-bina",
+            linkLabel: "View Proof",
         },
         {
             id: 2,
@@ -83,12 +99,12 @@ const Testimonials = () => {
                     >
                         <h3 className="text-2xl sm:text-3xl font-bold flex items-center gap-3">
                             <span className="w-8 h-1 bg-primary rounded-full"></span>
-                            Video Testimonial
+                            Video & Image Testimonials
                         </h3>
                     </motion.div>
 
-                    <div className="flex justify-center">
-                        {testimonials.filter(t => t.type === 'video').map((testimonial, index) => (
+                    <div className="flex justify-center flex-wrap gap-8">
+                        {testimonials.filter(t => t.type === 'video' || t.type === 'image').map((testimonial, index) => (
                             <motion.div
                                 key={testimonial.id}
                                 initial={{ opacity: 0, y: 30 }}
@@ -97,13 +113,21 @@ const Testimonials = () => {
                                 viewport={{ once: true, margin: "-50px" }}
                                 className="bg-card w-full max-w-sm rounded-2xl border border-border overflow-hidden hover:shadow-lg transition-all flex flex-col shadow-md"
                             >
-                                <div className="relative w-full overflow-hidden bg-muted/10 flex items-center justify-center aspect-[9/16] max-h-[600px]">
-                                    <video
-                                        src={testimonial.src}
-                                        controls
-                                        className="w-full h-full object-cover"
-                                        poster=""
-                                    />
+                                <div className={`relative w-full overflow-hidden bg-muted/10 flex items-center justify-center ${testimonial.type === 'video' ? 'aspect-[9/16] max-h-[600px]' : ''}`}>
+                                    {testimonial.type === 'video' ? (
+                                        <video
+                                            src={testimonial.src}
+                                            controls
+                                            className="w-full h-full object-cover"
+                                            poster=""
+                                        />
+                                    ) : (
+                                        <img
+                                            src={testimonial.src}
+                                            alt={testimonial.name}
+                                            className="w-full h-auto object-contain"
+                                        />
+                                    )}
                                 </div>
                                 <div className="p-6 md:p-8 flex flex-col justify-between">
                                     <div>
@@ -169,7 +193,6 @@ const Testimonials = () => {
                                         ))}
                                     </div>
                                     <span className="font-bold text-sm">{testimonial.stars}</span>
-                                    <span className="text-muted-foreground text-sm border-l border-border pl-3">• {testimonial.time}</span>
                                 </div>
 
                                 {/* Text */}
@@ -177,23 +200,25 @@ const Testimonials = () => {
                                     {testimonial.text}
                                 </p>
 
-                                {/* Footer: Duration, Fiverr Link */}
-                                <div className="pt-6 border-t border-border flex flex-col sm:flex-row gap-6 justify-between items-start sm:items-end mt-auto">
-                                    <div className="flex gap-6">
-                                        <div>
-                                            <p className="font-bold text-lg">{testimonial.duration}</p>
-                                            <p className="text-sm text-muted-foreground mt-1">Duration</p>
-                                        </div>
-                                    </div>
-
-                                    <a
-                                        href="https://www.fiverr.com/mzaynabbas_/make-professional-video-editor-portfolio-websites-custom-designs"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg bg-primary text-primary-foreground font-semibold transition-all duration-300 hover:shadow-[0_0_20px_hsl(172_66%_50%/0.3)] hover:-translate-y-0.5 whitespace-nowrap w-full sm:w-auto"
-                                    >
-                                        View on Fiverr <ExternalLink className="w-4 h-4" />
-                                    </a>
+                                {/* Footer: Fiverr Link */}
+                                <div className="pt-6 border-t border-border flex flex-col sm:flex-row gap-6 justify-end items-start sm:items-end mt-auto">
+                                    {testimonial.link ? (
+                                        <Link
+                                            to={testimonial.link}
+                                            className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg bg-primary text-primary-foreground font-semibold transition-all duration-300 hover:shadow-[0_0_20px_hsl(172_66%_50%/0.3)] hover:-translate-y-0.5 whitespace-nowrap w-full sm:w-auto"
+                                        >
+                                            {testimonial.linkLabel || "View Project"} <ExternalLink className="w-4 h-4" />
+                                        </Link>
+                                    ) : (
+                                        <a
+                                            href="https://www.fiverr.com/mzaynabbas_/make-professional-video-editor-portfolio-websites-custom-designs"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg bg-primary text-primary-foreground font-semibold transition-all duration-300 hover:shadow-[0_0_20px_hsl(172_66%_50%/0.3)] hover:-translate-y-0.5 whitespace-nowrap w-full sm:w-auto"
+                                        >
+                                            View on Fiverr <ExternalLink className="w-4 h-4" />
+                                        </a>
+                                    )}
                                 </div>
                             </motion.div>
                         ))}
