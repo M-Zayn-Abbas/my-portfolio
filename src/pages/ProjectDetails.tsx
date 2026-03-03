@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { projects } from "@/data/projects";
 import Header from "@/components/Header";
-import { ArrowLeft, ExternalLink, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, ExternalLink, X, ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 
 const ProjectDetails = () => {
@@ -194,6 +194,68 @@ const ProjectDetails = () => {
                                             alt={`${project.title} Client Testimonial`}
                                             className="w-full h-auto object-contain rounded-xl"
                                         />
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Text Testimonial */}
+                            {project.textTestimonial && (
+                                <div className="mt-12 max-w-xl mx-auto w-full">
+                                    <h3 className="text-xl font-bold uppercase tracking-widest text-primary mb-6 border-b border-border pb-2 text-center">Client Testimonial</h3>
+                                    <div className="bg-card w-full rounded-2xl border border-border overflow-hidden shadow-2xl flex flex-col p-6 md:p-8">
+                                        {/* Header */}
+                                        <div className="flex items-center gap-4 mb-6">
+                                            <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl ${project.textTestimonial.avatarColor || 'bg-primary/20 text-primary'}`}>
+                                                {project.textTestimonial.avatar}
+                                            </div>
+                                            <div>
+                                                <div className="flex items-baseline gap-2">
+                                                    <h4 className="font-bold text-lg leading-tight">{project.textTestimonial.name}</h4>
+                                                    {project.textTestimonial.businessName && (
+                                                        <span className="text-sm font-medium text-primary">
+                                                            ({project.textTestimonial.businessName})
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                {project.textTestimonial.country && (
+                                                    <span className="text-sm text-muted-foreground flex items-center gap-2">
+                                                        {project.textTestimonial.country}
+                                                    </span>
+                                                )}
+                                            </div>
+                                        </div>
+
+                                        {/* Stars */}
+                                        <div className="flex items-center gap-3 mb-4">
+                                            <div className="flex gap-1">
+                                                {[...Array(5)].map((_, i) => (
+                                                    <Star
+                                                        key={i}
+                                                        className={`w-4 h-4 ${project.textTestimonial!.stars > i ? 'fill-primary text-primary' : 'fill-muted text-muted-foreground'}`}
+                                                    />
+                                                ))}
+                                            </div>
+                                            <span className="font-bold text-sm">{project.textTestimonial.stars}</span>
+                                        </div>
+
+                                        {/* Text */}
+                                        <p className="text-foreground text-base leading-relaxed mb-4 flex-grow">
+                                            {project.textTestimonial.text}
+                                        </p>
+
+                                        {/* Footer: Fiverr Link */}
+                                        {(project.textTestimonial.name === "linat1245" || project.textTestimonial.name === "tr3dawgray") && (
+                                            <div className="pt-6 border-t border-border flex flex-col sm:flex-row gap-6 justify-end items-start sm:items-end mt-auto">
+                                                <a
+                                                    href="https://www.fiverr.com/mzaynabbas_/make-professional-video-editor-portfolio-websites-custom-designs"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg bg-primary text-primary-foreground font-semibold transition-all duration-300 hover:shadow-[0_0_20px_hsl(172_66%_50%/0.3)] hover:-translate-y-0.5 whitespace-nowrap w-full sm:w-auto"
+                                                >
+                                                    View on Fiverr <ExternalLink className="w-4 h-4" />
+                                                </a>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             )}

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { Menu, X } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface HeaderProps {
   transparent?: boolean;
@@ -8,6 +10,7 @@ interface HeaderProps {
 
 const Header = ({ transparent = false }: HeaderProps) => {
   const [scrolled, setScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const isHome = location.pathname === "/";
 
@@ -68,21 +71,50 @@ const Header = ({ transparent = false }: HeaderProps) => {
           ))}
         </nav>
 
-        {/* Mobile Navigation - just a simple hamburger icon for now or hidden */}
+        {/* Mobile Navigation Toggle */}
         <div className="md:hidden flex items-center">
-          <button className="text-foreground focus:outline-none">
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+          <button
+            className="text-foreground focus:outline-none"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </div>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="md:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-md border-b border-border shadow-lg py-8 flex flex-col items-center gap-6"
+          >
+            {navItems.map((item) => (
+              item.href.startsWith("/") && !item.href.includes("#") ? (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+                >
+                  {item.name}
+                </Link>
+              ) : (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+                >
+                  {item.name}
+                </a>
+              )
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

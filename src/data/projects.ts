@@ -10,6 +10,16 @@ export interface Project {
     features: string[];
     testimonialVideoUrl?: string; // Optional testimonial video
     testimonialImageUrl?: string; // Optional testimonial image
+    textTestimonial?: {
+        name: string;
+        businessName?: string;
+        country?: string;
+        avatar: string;
+        avatarColor?: string;
+        stars: number;
+        time: string;
+        text: string;
+    };
 }
 
 export const projects: Project[] = [
@@ -147,5 +157,113 @@ export const projects: Project[] = [
             "Responsive Elementor-based design"
         ],
         testimonialImageUrl: "/testimonials/bay-by-ambreen-and-bina.jpeg"
+    },
+    {
+        id: "amrvisions",
+        title: "AMR Visions",
+        shortDescription: "A striking video editor portfolio built with WordPress showcasing creative video projects and professional achievements.",
+        fullDescription: "A customized WordPress portfolio designed for AMR Visions to highlight their expertise in video editing.\n\nThe website serves as a visual showcase of their best work, integrating video content seamlessly to provide an engaging experience for potential clients looking for professional video production and editing services.",
+        stack: ["WordPress"],
+        videoUrl: "/amrvisions/video.mp4",
+        images: Array.from({ length: 6 }, (_, i) => `/amrvisions/${i + 1}.png`),
+        liveLink: "https://amrvisions.com",
+        features: [
+            "Video-centric portfolio layout",
+            "Professional showcase of editing work",
+            "Responsive WordPress design"
+        ],
+        textTestimonial: {
+            name: "linat1245",
+            businessName: "AMR Visions",
+            country: "🇳🇱 Netherlands",
+            avatar: "L",
+            avatarColor: "bg-[#FFD1D1] text-[#902A2A] dark:bg-red-900/30 dark:text-red-400",
+            stars: 5,
+            time: "6 months ago",
+            text: "Zayn is very helpful, thinks along with you, and always wants the best for his clients. He is reliable, professional, and easy to communicate with. Zayn takes the time to understand your needs and goes the extra mile to deliver great results."
+        }
+    },
+    {
+        id: "raymondcoleman",
+        title: "Raymond Coleman",
+        shortDescription: "A redesigned video editor portfolio providing an enriched user experience and professional feel.",
+        fullDescription: "A completely revamped video editor portfolio created on WordPress for Raymond Coleman.\n\nThe project focused on transitioning from an older design to a modern, dynamic portfolio that better showcases his creative video editing capabilities, enhancing his professional online presence.",
+        stack: ["WordPress"],
+        videoUrl: "/raymondcoleman/video.mp4",
+        images: Array.from({ length: 3 }, (_, i) => `/raymondcoleman/${i + 1}.png`),
+        liveLink: "https://www.raymondcoleman3.com/",
+        features: [
+            "Complete portfolio redesign",
+            "Modern video presentation",
+            "Responsive WordPress implementation"
+        ],
+        textTestimonial: {
+            name: "tr3dawgray",
+            country: "🇺🇸 United States",
+            avatar: "T",
+            stars: 4.7,
+            time: "1 year ago",
+            text: "Very responsive did a great job with a quick turnaround."
+        }
+    },
+    {
+        id: "asfandyar",
+        title: "Asfand Yar",
+        shortDescription: "A dual-purpose video and photography portfolio built efficiently on Wix.",
+        fullDescription: "A visually compelling portfolio developed for Asfand Yar using Wix, designed to highlight both their video editing and photography expertise.\n\nThe site leverages Wix's intuitive design capabilities to deliver a fluid, media-rich browsing experience that beautifully presents visual works.",
+        stack: ["Wix"],
+        videoUrl: "/asfandyar/video.mp4",
+        images: Array.from({ length: 4 }, (_, i) => `/asfandyar/${i + 1}.png`),
+        liveLink: "https://asfandyar3737.wixsite.com/asfand",
+        features: [
+            "Dual video and photography display",
+            "Visually compelling Wix design",
+            "Optimized media delivery"
+        ]
+    },
+    {
+        id: "rouatbisafouene",
+        title: "Rouatbisafouene",
+        shortDescription: "A dynamic video editor portfolio built with WordPress.",
+        fullDescription: "A dedicated video editor portfolio built on WordPress for Rouatbisafouene.\n\nThe platform is designed to present high-quality video content and highlight the editor's creative capabilities in a clean, modern interface.",
+        stack: ["WordPress"],
+        videoUrl: "/rouatbisafouene/video.mp4",
+        images: Array.from({ length: 6 }, (_, i) => `/rouatbisafouene/${i + 1}.png`),
+        liveLink: "https://rouatbisafouene.com/",
+        features: [
+            "Video portfolio presentation",
+            "Sleek and modern interface",
+            "WordPress managed backend"
+        ]
+    },
+    {
+        id: "mohsimplify",
+        title: "Mohsimplify",
+        shortDescription: "A minimalist video editor portfolio showcasing creative production skills.",
+        fullDescription: "A streamlined video editor portfolio created for Mohsimplify to effectively display video projects to prospective clients.",
+        stack: ["WordPress"],
+        videoUrl: "/mohsimplify/video.mp4",
+        images: [],
+        liveLink: "https://mohsimplify.com/",
+        features: [
+            "Focused video presentation",
+            "Performance optimized delivery",
+            "Clean and minimalist design"
+        ]
+    },
+    {
+        id: "solidtex",
+        title: "Solid Tex",
+        shortDescription: "A professional business showcase website for a thread making company.",
+        fullDescription: "A robust corporate website developed for Solid Tex, a premier thread making company.\n\nThe site highlights the company's industrial capabilities, product lines, and manufacturing excellence through a well-structured WordPress architecture, serving as a powerful B2B marketing tool.",
+        stack: ["WordPress"],
+        videoUrl: "/solidtex/solidtex.mp4",
+        images: Array.from({ length: 4 }, (_, i) => `/solidtex/${i + 1}.png`),
+        liveLink: "https://solidtex.net/",
+        features: [
+            "Corporate B2B showcase",
+            "Product line highlights",
+            "Professional WordPress development"
+        ]
     }
 ];

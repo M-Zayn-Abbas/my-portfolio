@@ -7,6 +7,7 @@ type Testimonial = {
     type: "video" | "text" | "image";
     src?: string;
     name: string;
+    businessName?: string;
     role?: string;
     country?: string;
     avatar?: string;
@@ -26,44 +27,54 @@ const Testimonials = () => {
             id: 1,
             type: "video",
             src: "/testimonials/kamilla.mp4",
-            name: "Kamilla",
+            name: "Kamilla Norrman",
             role: "Client",
+            businessName: "Kamilla and Curious Mindset",
+            link: "/client-work/kamilla-norrman",
+            linkLabel: "View Project",
         },
         {
             id: 4,
             type: "text",
             name: "Ambreen Zahra",
-            country: "Bay by Ambreen and Bina",
+            country: "Pakistan",
+            businessName: "Bay by Ambreen and Bina",
             avatar: "AB",
             avatarColor: "bg-primary/20 text-primary",
             stars: 5,
             time: "Recently",
             text: "I would like to say thank you to Zain for making a beautiful website for my brand BAY BY AMBREEN AND BINA . The website looks very professional and attractive. Many people liked it and asked me for the info from where I got it made so that they can get their own websites made.\nI really appreciate your hard work. Thank you so much, Zain!",
             link: "/client-work/bay-by-ambreen-and-bina",
-            linkLabel: "View Proof",
+            linkLabel: "View Project",
         },
         {
             id: 2,
             type: "text",
             name: "linat1245",
             country: "🇳🇱 Netherlands",
+            businessName: "AMR Visions",
             avatar: "L",
             avatarColor: "bg-[#FFD1D1] text-[#902A2A] dark:bg-red-900/30 dark:text-red-400",
             stars: 5,
             time: "6 months ago",
             text: "Zayn is very helpful, thinks along with you, and always wants the best for his clients. He is reliable, professional, and easy to communicate with. Zayn takes the time to understand your needs and goes the extra mile to deliver great results.",
             duration: "7 days",
+            link: "/client-work/amrvisions",
+            linkLabel: "View Project",
         },
         {
             id: 3,
             type: "text",
             name: "tr3dawgray",
             country: "🇺🇸 United States",
+            businessName: "Raymond Coleman",
             avatar: "T",
             stars: 4.7,
             time: "1 year ago",
             text: "Very responsive did a great job with a quick turnaround.",
             duration: "8 days",
+            link: "/client-work/raymondcoleman",
+            linkLabel: "View Project",
         },
     ];
 
@@ -132,8 +143,33 @@ const Testimonials = () => {
                                 <div className="p-6 md:p-8 flex flex-col justify-between">
                                     <div>
                                         <h3 className="font-semibold text-xl mb-1">{testimonial.name}</h3>
-                                        <p className="text-sm text-primary font-medium">{testimonial.role}</p>
+                                        {testimonial.businessName && (
+                                            <span className="text-sm font-medium text-primary">
+                                                ({testimonial.businessName})
+                                            </span>
+                                        )}
                                     </div>
+                                </div>
+                                {/* Footer links for video testimonial */}
+                                <div className="p-6 md:p-8 pt-0 border-t border-border/50 flex flex-col sm:flex-row gap-4 mt-auto justify-end">
+                                    {testimonial.name === "linat1245" || testimonial.name === "tr3dawgray" ? (
+                                        <a
+                                            href="https://www.fiverr.com/mzaynabbas_/make-professional-video-editor-portfolio-websites-custom-designs"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg border border-border bg-card text-foreground font-semibold transition-all duration-300 hover:border-primary/50 hover:text-primary whitespace-nowrap w-full sm:w-auto text-sm"
+                                        >
+                                            View on Fiverr <ExternalLink className="w-3.5 h-3.5" />
+                                        </a>
+                                    ) : null}
+                                    {testimonial.link && (
+                                        <Link
+                                            to={testimonial.link}
+                                            className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg bg-primary text-primary-foreground font-semibold transition-all duration-300 hover:shadow-[0_0_20px_hsl(172_66%_50%/0.3)] hover:-translate-y-0.5 whitespace-nowrap w-full sm:w-auto text-sm"
+                                        >
+                                            {testimonial.linkLabel || "View Project"} <ExternalLink className="w-3.5 h-3.5" />
+                                        </Link>
+                                    )}
                                 </div>
                             </motion.div>
                         ))}
@@ -175,7 +211,14 @@ const Testimonials = () => {
                                         </div>
                                     )}
                                     <div>
-                                        <h4 className="font-bold text-lg leading-tight">{testimonial.name}</h4>
+                                        <div className="flex items-baseline gap-2">
+                                            <h4 className="font-bold text-lg leading-tight">{testimonial.name}</h4>
+                                            {testimonial.businessName && (
+                                                <span className="text-sm font-medium text-primary">
+                                                    ({testimonial.businessName})
+                                                </span>
+                                            )}
+                                        </div>
                                         <span className="text-sm text-muted-foreground flex items-center gap-2">
                                             {testimonial.country}
                                         </span>
@@ -200,24 +243,25 @@ const Testimonials = () => {
                                     {testimonial.text}
                                 </p>
 
-                                {/* Footer: Fiverr Link */}
-                                <div className="pt-6 border-t border-border flex flex-col sm:flex-row gap-6 justify-end items-start sm:items-end mt-auto">
-                                    {testimonial.link ? (
+                                {/* Footer: Links */}
+                                <div className="pt-6 border-t border-border flex flex-col sm:flex-row gap-4 justify-end items-stretch sm:items-end mt-auto">
+                                    {(testimonial.name === "linat1245" || testimonial.name === "tr3dawgray") && (
+                                        <a
+                                            href="https://www.fiverr.com/mzaynabbas_/make-professional-video-editor-portfolio-websites-custom-designs"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg border border-border bg-card text-foreground font-semibold transition-all duration-300 hover:border-primary/50 hover:text-primary whitespace-nowrap w-full sm:w-auto"
+                                        >
+                                            View on Fiverr <ExternalLink className="w-4 h-4" />
+                                        </a>
+                                    )}
+                                    {testimonial.link && (
                                         <Link
                                             to={testimonial.link}
                                             className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg bg-primary text-primary-foreground font-semibold transition-all duration-300 hover:shadow-[0_0_20px_hsl(172_66%_50%/0.3)] hover:-translate-y-0.5 whitespace-nowrap w-full sm:w-auto"
                                         >
                                             {testimonial.linkLabel || "View Project"} <ExternalLink className="w-4 h-4" />
                                         </Link>
-                                    ) : (
-                                        <a
-                                            href="https://www.fiverr.com/mzaynabbas_/make-professional-video-editor-portfolio-websites-custom-designs"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg bg-primary text-primary-foreground font-semibold transition-all duration-300 hover:shadow-[0_0_20px_hsl(172_66%_50%/0.3)] hover:-translate-y-0.5 whitespace-nowrap w-full sm:w-auto"
-                                        >
-                                            View on Fiverr <ExternalLink className="w-4 h-4" />
-                                        </a>
                                     )}
                                 </div>
                             </motion.div>
