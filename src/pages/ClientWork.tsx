@@ -1,8 +1,100 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { projects } from "@/data/projects";
+import { Project, projects } from "@/data/projects";
 import Header from "@/components/Header";
 import { Helmet } from "react-helmet-async";
+
+const ProjectItem = ({ project, index }: { project: Project; index: number }) => {
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    useEffect(() => {
+        if (!videoRef.current) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        videoRef.current?.play().catch(() => { });
+                    } else {
+                        videoRef.current?.pause();
+                    }
+                });
+            },
+            { threshold: 0.5 }
+        );
+
+        observer.observe(videoRef.current);
+
+        return () => {
+            if (videoRef.current) observer.unobserve(videoRef.current);
+        };
+    }, []);
+
+    return (
+        <div
+            className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center animate-fade-in-up group"
+            style={{ animationDelay: `${(index + 2) * 100}ms` }}
+        >
+            {/* Project Video/Image */}
+            <div className="relative overflow-hidden rounded-2xl bg-zinc-900 border border-zinc-800 shadow-2xl transition-transform duration-500 group-hover:scale-[1.02] flex items-center justify-center w-full h-full min-h-[300px]">
+                {project.videoUrl ? (
+                    <video
+                        ref={videoRef}
+                        src={project.videoUrl}
+                        className="w-full h-full object-cover"
+                        loop
+                        muted
+                        playsInline
+                    />
+                ) : (
+                    <img
+                        src={project.images[0]}
+                        alt={project.title}
+                        className="w-full h-full object-cover"
+                    />
+                )}
+                {/* Overlay Gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+            </div>
+
+            {/* Project Details */}
+            <div className="flex flex-col">
+                <h2 className="text-3xl font-bold mb-4 group-hover:text-primary transition-colors duration-300">
+                    {project.title}
+                </h2>
+
+                {/* Problem Solved / Description */}
+                <div className="mb-6">
+                    <p className="text-muted-foreground leading-relaxed text-lg line-clamp-3">
+                        {project.shortDescription}
+                    </p>
+                </div>
+
+                {/* Tech Stack */}
+                <div className="mb-8 flex flex-wrap gap-2">
+                    {project.stack.map(tech => (
+                        <span
+                            key={tech}
+                            className="px-3 py-1 bg-secondary text-secondary-foreground rounded-full text-xs font-semibold tracking-wider border border-border"
+                        >
+                            {tech}
+                        </span>
+                    ))}
+                </div>
+
+                {/* Actions */}
+                <div>
+                    <Link
+                        to={`/client-work/${project.id}`}
+                        className="inline-flex items-center justify-center px-8 py-3.5 rounded-lg bg-primary text-primary-foreground font-semibold transition-all duration-300 hover:shadow-[0_0_30px_hsl(172_66%_50%/0.3)] hover:-translate-y-0.5"
+                    >
+                        View My Work
+                    </Link>
+                </div>
+            </div>
+        </div>
+    );
+};
 
 const ClientWork = () => {
     return (
@@ -23,69 +115,7 @@ const ClientWork = () => {
 
                     <div className="flex flex-col gap-24">
                         {projects.map((project, index) => (
-                            <div
-                                key={project.id}
-                                className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center animate-fade-in-up group"
-                                style={{ animationDelay: `${(index + 2) * 100}ms` }}
-                            >
-                                {/* Project Video/Image */}
-                                <div className="relative overflow-hidden rounded-2xl bg-zinc-900 border border-zinc-800 shadow-2xl transition-transform duration-500 group-hover:scale-[1.02] flex items-center justify-center">
-                                    {project.videoUrl ? (
-                                        <video
-                                            src={project.videoUrl}
-                                            className="w-full h-auto"
-                                            autoPlay
-                                            loop
-                                            muted
-                                            playsInline
-                                        />
-                                    ) : (
-                                        <img
-                                            src={project.images[0]}
-                                            alt={project.title}
-                                            className="w-full h-auto object-cover"
-                                        />
-                                    )}
-                                    {/* Overlay Gradient */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-                                </div>
-
-                                {/* Project Details */}
-                                <div className="flex flex-col">
-                                    <h2 className="text-3xl font-bold mb-4 group-hover:text-primary transition-colors duration-300">
-                                        {project.title}
-                                    </h2>
-
-                                    {/* Problem Solved / Description */}
-                                    <div className="mb-6">
-                                        <p className="text-muted-foreground leading-relaxed text-lg line-clamp-3">
-                                            {project.shortDescription}
-                                        </p>
-                                    </div>
-
-                                    {/* Tech Stack */}
-                                    <div className="mb-8 flex flex-wrap gap-2">
-                                        {project.stack.map(tech => (
-                                            <span
-                                                key={tech}
-                                                className="px-3 py-1 bg-secondary text-secondary-foreground rounded-full text-xs font-semibold tracking-wider border border-border"
-                                            >
-                                                {tech}
-                                            </span>
-                                        ))}
-                                    </div>
-
-                                    {/* Actions */}
-                                    <div>
-                                        <Link
-                                            to={`/client-work/${project.id}`}
-                                            className="inline-flex items-center justify-center px-8 py-3.5 rounded-lg bg-primary text-primary-foreground font-semibold transition-all duration-300 hover:shadow-[0_0_30px_hsl(172_66%_50%/0.3)] hover:-translate-y-0.5"
-                                        >
-                                            View My Work
-                                        </Link>
-                                    </div>
-                                </div>
-                            </div>
+                            <ProjectItem key={project.id} project={project} index={index} />
                         ))}
                     </div>
                 </div>
